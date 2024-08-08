@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flujo de Aprobaciones</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Flujo de Aprobaciones</h1>
+        <form id="approvalForm">
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" required>
+
+            <label for="solicitud">Solicitud:</label>
+            <textarea id="solicitud" name="solicitud" required></textarea>
+
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="prioridad">Prioridad:</label>
+            <select id="prioridad" name="prioridad">
+                <option value="baja">Baja</option>
+                <option value="media">Media</option>
+                <option value="alta">Alta</option>
+            </select>
+
+            <button type="submit">Enviar Solicitud</button>
+        </form>
+
+        <div class="buttons">
+            <button id="verNuevasSolicitudes">Ver Nuevas Solicitudes</button>
+            <button id="verTodasSolicitudes">Ver Todas las Solicitudes</button>
+        </div>
+
+        <h2>Progreso de la Solicitud</h2>
+        <div id="progress" class="progress">
+            <div id="progress-bar" class="progress-bar">0%</div>
+        </div>
+
+        <h2>Solicitudes</h2>
+        <ul id="solicitudesList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
 
