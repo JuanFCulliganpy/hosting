@@ -44,7 +44,7 @@
         .filters button:hover {
             background-color: #0056b3;
         }
-        /* Estilo para el modal */
+        /* Estilo para los modales */
         .modal {
             display: none;
             position: fixed;
@@ -110,7 +110,7 @@
     <!-- Modal para nueva solicitud -->
     <div id="nuevaSolicitudModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="cerrarModal()">&times;</span>
+            <span class="close" onclick="cerrarModal('nuevaSolicitudModal')">&times;</span>
             <h2>Generar Nueva Solicitud</h2>
             <form id="nuevaSolicitudForm">
                 <label for="asunto">Asunto:</label>
@@ -128,6 +128,38 @@
                 <label for="importe">Importe:</label>
                 <input type="text" id="importe" name="importe"><br><br>
                 <button type="submit">Enviar Solicitud</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para detalle de solicitud -->
+    <div id="detalleSolicitudModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal('detalleSolicitudModal')">&times;</span>
+            <h2>Detalle de Solicitud</h2>
+            <form id="detalleSolicitudForm">
+                <input type="hidden" id="detalleNro">
+                <label for="detalleAsunto">Asunto:</label>
+                <input type="text" id="detalleAsunto" name="detalleAsunto" required><br><br>
+                <label for="detalleCategoria">Categoría:</label>
+                <input type="text" id="detalleCategoria" name="detalleCategoria" required><br><br>
+                <label for="detallePrioridad">Prioridad:</label>
+                <select id="detallePrioridad" name="detallePrioridad">
+                    <option value="Alta">Alta</option>
+                    <option value="Media">Media</option>
+                    <option value="Baja">Baja</option>
+                </select><br><br>
+                <label for="detallePago">Pago:</label>
+                <input type="text" id="detallePago" name="detallePago"><br><br>
+                <label for="detalleImporte">Importe:</label>
+                <input type="text" id="detalleImporte" name="detalleImporte"><br><br>
+                <label for="detalleEstado">Estado:</label>
+                <select id="detalleEstado" name="detalleEstado">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Aprobado">Aprobado</option>
+                    <option value="Rechazado">Rechazado</option>
+                </select><br><br>
+                <button type="submit">Guardar Cambios</button>
             </form>
         </div>
     </div>
@@ -179,11 +211,21 @@
         }
 
         function verDetalle(nro) {
-            alert(`Detalles de la solicitud número ${nro}`);
+            const solicitud = solicitudes.find(s => s.nro === nro);
+            if (solicitud) {
+                document.getElementById('detalleNro').value = solicitud.nro;
+                document.getElementById('detalleAsunto').value = solicitud.asunto;
+                document.getElementById('detalleCategoria').value = solicitud.categoria;
+                document.getElementById('detallePrioridad').value = solicitud.prioridad;
+                document.getElementById('detallePago').value = solicitud.pago;
+                document.getElementById('detalleImporte').value = solicitud.importe;
+                document.getElementById('detalleEstado').value = solicitud.estado;
+                document.getElementById('detalleSolicitudModal').style.display = 'block';
+            }
         }
 
-        function cerrarModal() {
-            document.getElementById('nuevaSolicitudModal').style.display = 'none';
+        function cerrarModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
 
         document.getElementById('nuevaSolicitudForm').addEventListener('submit', function(event) {
@@ -201,7 +243,23 @@
             };
             solicitudes.push(nuevaSolicitud);
             cargarSolicitudes();
-            cerrarModal();
+            cerrarModal('nuevaSolicitudModal');
+        });
+
+        document.getElementById('detalleSolicitudForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nro = document.getElementById('detalleNro').value;
+            const solicitud = solicitudes.find(s => s.nro === parseInt(nro));
+            if (solicitud) {
+                solicitud.asunto = document.getElementById('detalleAsunto').value;
+                solicitud.categoria = document.getElementById('detalleCategoria').value;
+                solicitud.prioridad = document.getElementById('detallePrioridad').value;
+                solicitud.pago = document.getElementById('detallePago').value;
+                solicitud.importe = document.getElementById('detalleImporte').value;
+                solicitud.estado = document.getElementById('detalleEstado').value;
+                cargarSolicitudes();
+                cerrarModal('detalleSolicitudModal');
+            }
         });
     </script>
 </body>
