@@ -9,38 +9,29 @@
 <body>
     <div class="container">
         <h1>Flujo de Aprobaciones</h1>
-        <form id="approvalForm">
-            <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" name="usuario" required>
-
-            <label for="solicitud">Solicitud:</label>
-            <textarea id="solicitud" name="solicitud" required></textarea>
-
-            <label for="fecha">Fecha:</label>
-            <input type="date" id="fecha" name="fecha" required>
-
-            <label for="prioridad">Prioridad:</label>
-            <select id="prioridad" name="prioridad">
-                <option value="baja">Baja</option>
-                <option value="media">Media</option>
-                <option value="alta">Alta</option>
-            </select>
-
-            <button type="submit">Enviar Solicitud</button>
-        </form>
-
-        <div class="buttons">
-            <button id="verNuevasSolicitudes">Ver Nuevas Solicitudes</button>
-            <button id="verTodasSolicitudes">Ver Todas las Solicitudes</button>
+        <div class="filters">
+            <button onclick="generarNuevaSolicitud()">Generar Nueva Solicitud</button>
+            <button onclick="mostrarPendientes()">Solicitudes Pendientes de Procesamiento</button>
+            <button onclick="limpiarFiltros()">Limpiar Filtro</button>
         </div>
-
-        <h2>Progreso de la Solicitud</h2>
-        <div id="progress" class="progress">
-            <div id="progress-bar" class="progress-bar">0%</div>
-        </div>
-
-        <h2>Solicitudes</h2>
-        <ul id="solicitudesList"></ul>
+        <table id="solicitudesTable">
+            <thead>
+                <tr>
+                    <th>Nro.</th>
+                    <th>Fecha</th>
+                    <th>Asunto</th>
+                    <th>Categoría</th>
+                    <th>Prioridad</th>
+                    <th>Pago</th>
+                    <th>Importe</th>
+                    <th>Estado</th>
+                    <th>Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Las solicitudes se llenarán aquí mediante JavaScript -->
+            </tbody>
+        </table>
     </div>
 
     <script src="script.js"></script>
