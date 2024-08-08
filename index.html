@@ -4,7 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flujo de Aprobaciones</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #eee;
+        }
+        .filters button {
+            padding: 10px;
+            margin-right: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .filters button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -34,8 +74,50 @@
         </table>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarSolicitudes();
+        });
+
+        function cargarSolicitudes() {
+            const tbody = document.getElementById('solicitudesTable').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+
+            const solicitudes = [
+                { nro: 1, fecha: '2024-08-08', asunto: 'Compra de equipos', categoria: 'Equipos', prioridad: 'Alta', pago: 'Pendiente', importe: '1200', estado: 'Pendiente', detalle: 'Ver más' },
+                { nro: 2, fecha: '2024-08-07', asunto: 'Renovación de licencia', categoria: 'Software', prioridad: 'Media', pago: 'Completado', importe: '300', estado: 'Aprobado', detalle: 'Ver más' }
+            ];
+
+            solicitudes.forEach(solicitud => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${solicitud.nro}</td>
+                                <td>${solicitud.fecha}</td>
+                                <td>${solicitud.asunto}</td>
+                                <td>${solicitud.categoria}</td>
+                                <td>${solicitud.prioridad}</td>
+                                <td>${solicitud.pago}</td>
+                                <td>${solicitud.importe}</td>
+                                <td>${solicitud.estado}</td>
+                                <td><button onclick="verDetalle(${solicitud.nro})">${solicitud.detalle}</button></td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function generarNuevaSolicitud() {
+            alert('Generar nueva solicitud');
+        }
+
+        function mostrarPendientes() {
+            alert('Mostrar solicitudes pendientes');
+        }
+
+        function limpiarFiltros() {
+            alert('Filtros limpiados');
+        }
+
+        function verDetalle(nro) {
+            alert(`Detalles de la solicitud número ${nro}`);
+        }
+    </script>
 </body>
 </html>
-
-
